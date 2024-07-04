@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finalproject/view/screens/homescreen/cubit/homecubit_cubit.dart';
-import 'package:finalproject/view/screens/homescreen/homescreen.dart';
+import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/cubit/homecubit_cubit.dart';
+import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/homescreen.dart';
 import 'package:finalproject/view/screens/localstorege/localstorage.dart';
 import 'package:finalproject/view/screens/loginscreen/cubit/logincubit_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';

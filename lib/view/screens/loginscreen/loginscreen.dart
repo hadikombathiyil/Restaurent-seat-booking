@@ -1,5 +1,5 @@
 import 'package:finalproject/sizedbox.dart';
-import 'package:finalproject/view/screens/homescreen/homescreen.dart';
+import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/homescreen.dart';
 import 'package:finalproject/view/screens/loginscreen/cubit/logincubit_cubit.dart';
 import 'package:finalproject/view/screens/registerscreen/registerscreen.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,7 @@ class Loginscreen extends StatelessWidget {
                               labelText: "Email",
                               labelStyle: const TextStyle(color: Colors.white),
                               filled: true,
-                              fillColor: const Color.fromARGB(190, 2, 74, 86),
+                              fillColor: const Color.fromARGB(255, 2, 73, 86),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50))),
                         ),
@@ -84,7 +84,7 @@ class Loginscreen extends StatelessWidget {
                               labelText: "Password",
                               labelStyle: const TextStyle(color: Colors.white),
                               filled: true,
-                              fillColor: const Color.fromARGB(190, 2, 74, 86),
+                              fillColor: const Color.fromARGB(255, 2, 73, 86),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50))),
                         ),
@@ -95,7 +95,7 @@ class Loginscreen extends StatelessWidget {
                       child: ElevatedButton(
                           style: const ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(
-                                  Color.fromARGB(189, 2, 74, 86))),
+                                  Color.fromARGB(255, 2, 73, 86))),
                           onPressed: () {
                             cubit.login();
                           },
@@ -115,7 +115,7 @@ class Loginscreen extends StatelessWidget {
                             child: Text(
                               "Create an account  ",
                               style: TextStyle(
-                                  color: Color.fromARGB(190, 2, 74, 86),
+                                  color: Color.fromARGB(255, 2, 73, 86),
                                   fontWeight: FontWeight.bold),
                             )))
                   ]),

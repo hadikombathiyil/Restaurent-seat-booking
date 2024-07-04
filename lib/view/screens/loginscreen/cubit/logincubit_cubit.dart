@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:finalproject/view/screens/homescreen/cubit/homecubit_cubit.dart';
-import 'package:finalproject/view/screens/homescreen/homescreen.dart';
+import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/cubit/homecubit_cubit.dart';
+import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/homescreen.dart';
 import 'package:finalproject/view/screens/localstorege/localstorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:finalproject/sizedbox.dart';
-import 'package:finalproject/view/screens/homescreen/homescreen.dart';
+import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/homescreen.dart';
 import 'package:finalproject/view/screens/loginscreen/loginscreen.dart';
 import 'package:finalproject/view/screens/registerscreen/cubit/registercubit_cubit.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ class Registerscreen extends StatelessWidget {
                           labelText: "Username",
                           labelStyle: const TextStyle(color: Colors.white),
                           filled: true,
-                          fillColor: const Color.fromARGB(190, 2, 74, 86),
+                          fillColor: const Color.fromARGB(255, 2, 73, 86),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(50))),
                     ),
@@ -83,7 +83,7 @@ class Registerscreen extends StatelessWidget {
                           labelText: "Email",
                           labelStyle: const TextStyle(color: Colors.white),
                           filled: true,
-                          fillColor: const Color.fromARGB(190, 2, 74, 86),
+                          fillColor: const Color.fromARGB(255, 2, 73, 86),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(50))),
                     ),
@@ -100,7 +100,7 @@ class Registerscreen extends StatelessWidget {
                           labelText: "Password",
                           labelStyle: const TextStyle(color: Colors.white),
                           filled: true,
-                          fillColor: const Color.fromARGB(190, 2, 74, 86),
+                          fillColor: const Color.fromARGB(255, 2, 73, 86),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(50))),
                     ),
@@ -110,8 +110,8 @@ class Registerscreen extends StatelessWidget {
                 Center(
                   child: ElevatedButton(
                       style: const ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                              Color.fromARGB(190, 2, 74, 86))),
+                          backgroundColor: WidgetStatePropertyAll(
+                              Color.fromARGB(255, 2, 73, 86))),
                       onPressed: () {
                         cubit.register();
                       },
@@ -131,7 +131,7 @@ class Registerscreen extends StatelessWidget {
                         child: const Text(
                           "Already have an account?  ",
                           style: TextStyle(
-                              color: Color.fromARGB(190, 2, 74, 86),
+                              color: Color.fromARGB(255, 2, 73, 86),
                               fontWeight: FontWeight.bold),
                         )))
               ]));

@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:finalproject/view/screens/homescreen/homescreen.dart';
+import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/homescreen.dart';
 import 'package:finalproject/view/screens/localstorege/localstorage.dart';
+import 'package:finalproject/viewmodel/bottombar/bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -45,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
       backgroundColor: Colors.white,
-      nextScreen: token == null ? Homescreen() : Homescreen(),
+      nextScreen: token == null ? MainPage() : MainPage(),
       splashIconSize: 300,
       duration: 2000,
     );

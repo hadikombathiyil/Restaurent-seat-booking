@@ -2,7 +2,8 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:finalproject/sizedbox.dart';
-import 'package:finalproject/viewmodel/bottombar.dart';
+import 'package:finalproject/view/screens/restuarentscreen/restuarentscreen.dart';
+
 import 'package:finalproject/viewmodel/imageslider/imageslider.dart';
 import 'package:finalproject/viewmodel/restuarents/restuarents.dart';
 
@@ -21,9 +22,9 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Bottombar(),
+      // bottomNavigationBar: Bottombar(),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(190, 2, 74, 86),
+        backgroundColor: Color.fromARGB(255, 2, 73, 86),
         title: Text("Hadi",
             style: TextStyle(
                 color: Colors.white,
@@ -43,7 +44,7 @@ class Homescreen extends StatelessWidget {
             style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(190, 2, 74, 86)),
+                color: Color.fromARGB(255, 2, 73, 86)),
           ),
           10.hBox,
           CarouselSlider(
@@ -64,7 +65,7 @@ class Homescreen extends StatelessWidget {
           15.hBox,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children:  [
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
@@ -72,17 +73,24 @@ class Homescreen extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(190, 2, 74, 86)),
+                      color: Color.fromARGB(255, 2, 73, 86)),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "See All>",
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(190, 2, 74, 86)),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Restuarentscreen(),
+                    ));
+                  },
+                  child: Text(
+                    "See All>",
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 2, 73, 86)),
+                  ),
                 ),
               )
             ],
@@ -90,7 +98,9 @@ class Homescreen extends StatelessWidget {
           Expanded(
             child: ListView.separated(
                 itemBuilder: (context, index) {
-                  return Restaurents();
+                  return Restaurents(
+                    text: "Book",
+                  );
                 },
                 separatorBuilder: (context, index) => 7.hBox,
                 itemCount: 6),

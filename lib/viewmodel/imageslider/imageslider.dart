@@ -12,7 +12,7 @@ class Imageslider extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Color.fromARGB(190, 2, 74, 86), width: 4),
+          border: Border.all(color: Color.fromARGB(255, 2, 73, 86), width: 4),
           color: Colors.white,
           image: DecorationImage(image: AssetImage(img), fit: BoxFit.fill)),
     );

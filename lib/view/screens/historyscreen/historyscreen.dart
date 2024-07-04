@@ -5,15 +5,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Restuarentscreen extends StatelessWidget {
-  const Restuarentscreen({super.key});
+class Historyscreen extends StatelessWidget {
+  const Historyscreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Restuarents",
+          "Booking History",
           style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
@@ -25,10 +25,10 @@ class Restuarentscreen extends StatelessWidget {
           Expanded(
             child: ListView.separated(
                 itemBuilder: (context, index) {
-                  return Restaurents(text: "Book");
+                  return Restaurents(text: "Check");
                 },
                 separatorBuilder: (context, index) => 20.hBox,
-                itemCount: 7),
+                itemCount: 1),
           )
         ],
       ),

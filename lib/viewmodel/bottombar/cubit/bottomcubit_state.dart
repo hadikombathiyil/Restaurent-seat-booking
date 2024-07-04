@@ -1,6 +1,8 @@
-part of 'bottomcubit_cubit.dart';
+abstract class BottomcubitState {
+  final int currentIndex;
+  const BottomcubitState(this.currentIndex);
+}
 
-@immutable
-sealed class BottomcubitState {}
-
-final class BottomcubitInitial extends BottomcubitState {}
+class BottomcubitInitial extends BottomcubitState {
+  const BottomcubitInitial(int currentIndex) : super(currentIndex);
+}

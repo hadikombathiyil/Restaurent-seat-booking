@@ -12,7 +12,7 @@ class Profilecontainer extends StatelessWidget {
       height: 60,
       width: 350,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(190, 2, 74, 86),
+        color: Color.fromARGB(255, 2, 73, 86),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
