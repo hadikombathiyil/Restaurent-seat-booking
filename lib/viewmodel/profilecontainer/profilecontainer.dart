@@ -40,7 +40,7 @@ class Profilecontainer extends StatelessWidget {
             ),
           )
         ],
-      ),
-    );
-  }
+    ),
+);
+}
 }
