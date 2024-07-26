@@ -1,11 +1,10 @@
 import 'package:finalproject/view/screens/historyscreen/historyscreen.dart';
-import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/homescreen.dart';
+import 'package:finalproject/view/screens/homescreen/homescreen/homescreen.dart';
 import 'package:finalproject/view/screens/profilescreen/profilescreen.dart';
 import 'package:finalproject/view/screens/restuarentscreen/restuarentscreen.dart';
 import 'package:finalproject/viewmodel/bottombar/cubit/bottomcubit_cubit.dart';
 import 'package:finalproject/viewmodel/bottombar/cubit/bottomcubit_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainPage extends StatelessWidget {
@@ -13,6 +12,10 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double iconSize = size.width * 0.06;
+    final double fontSize = size.width * 0.03;
+
     return BlocProvider(
       create: (context) => BottomcubitCubit(),
       child: BlocBuilder<BottomcubitCubit, BottomcubitState>(
@@ -26,27 +29,29 @@ class MainPage extends StatelessWidget {
                 canvasColor: const Color.fromARGB(190, 2, 74, 86),
               ),
               child: BottomNavigationBar(
-                items: const <BottomNavigationBarItem>[
+                items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
+                    icon: Icon(Icons.home, size: iconSize),
                     label: 'Home',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.restaurant),
+                    icon: Icon(Icons.restaurant, size: iconSize),
                     label: 'Restaurants',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.summarize),
+                    icon: Icon(Icons.summarize, size: iconSize),
                     label: 'Bookings',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
+                    icon: Icon(Icons.person, size: iconSize),
                     label: 'Profile',
                   ),
                 ],
                 currentIndex: state.currentIndex,
                 selectedItemColor: Colors.white,
                 unselectedItemColor: Colors.white,
+                selectedFontSize: fontSize,
+                unselectedFontSize: fontSize * 0.9,
                 onTap: (index) {
                   cubit.changeIndex(index);
                 },

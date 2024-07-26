@@ -1,6 +1,14 @@
-part of 'registercubit_cubit.dart';
+import 'package:flutter/foundation.dart';
 
 @immutable
-sealed class RegistercubitState {}
+abstract class RegistercubitState {}
 
-final class RegistercubitInitial extends RegistercubitState {}
+class RegistercubitInitial extends RegistercubitState {}
+
+class RegisterSuccess extends RegistercubitState {}
+
+class RegisterFailure extends RegistercubitState {
+  final String error;
+
+  RegisterFailure(this.error);
+}

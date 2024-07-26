@@ -8,7 +8,8 @@ class BookingCubit extends Cubit<BookingState> {
   BookingCubit() : super(BookingState(
     selectedDate: DateTime.now(),
     selectedTime: TimeOfDay.now(),
-      tables: List.generate(16, (index) => index + 1)
+      tables: List.generate(10, (index) => index + 1),
+      numberOfSeats:1,
    
   ));
 
@@ -22,6 +23,10 @@ class BookingCubit extends Cubit<BookingState> {
 
   void selectTable(int table) {
     emit(state.copyWith(selectedTable:table));
+
+}
+void selectNumberOfSeats(int seats) {
+    emit(state.copyWith(numberOfSeats:seats));
 }
 }
 

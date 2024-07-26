@@ -1,18 +1,20 @@
+import 'package:finalproject/view/screens/historyscreen/historyscreen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import 'package:finalproject/view/screens/bookingscreen/cubit/bookingcubit_cubit.dart';
 import 'package:finalproject/view/screens/bookingscreen/cubit/bookingcubit_state.dart';
 import 'package:finalproject/viewmodel/color/colors.dart';
 import 'package:finalproject/viewmodel/profilecontainer/profilecontainer.dart';
-import 'package:finalproject/sizedbox.dart';
 
 class Bookingscreen extends StatelessWidget {
   const Bookingscreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: BlocProvider(
@@ -23,12 +25,12 @@ class Bookingscreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 300,
+                    height: screenSize.height * 0.3,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(screenSize.width * 0.08),
+                        bottomRight: Radius.circular(screenSize.width * 0.08),
                       ),
                       border: Border.all(
                         width: 2,
@@ -36,41 +38,46 @@ class Bookingscreen extends StatelessWidget {
                       ),
                       image: const DecorationImage(
                         image: AssetImage("assets/download.jpeg"),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  10.hBox,
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  SizedBox(height: screenSize.height * 0.02),
+                  Padding(
+                    padding: EdgeInsets.all(screenSize.width * 0.02),
                     child: Text(
                       "Paragon",
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: screenSize.width * 0.06,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 2, 73, 86),
+                        color: const Color.fromARGB(255, 2, 73, 86),
                       ),
                     ),
                   ),
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.location_pin,
                         color: Colors.red,
+                        size: screenSize.width * 0.05,
                       ),
                       Text(
                         "Vellayil, Kozhikode",
-                        style: TextStyle(color: Color.fromARGB(255, 2, 73, 86)),
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 2, 73, 86),
+                          fontSize: screenSize.width * 0.04,
+                        ),
                       ),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  Padding(
+                    padding: EdgeInsets.all(screenSize.width * 0.02),
                     child: Text(
                       "Select date",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: screenSize.width * 0.05,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 2, 73, 86),
+                        color: const Color.fromARGB(255, 2, 73, 86),
                       ),
                     ),
                   ),
@@ -83,14 +90,14 @@ class Bookingscreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  Padding(
+                    padding: EdgeInsets.all(screenSize.width * 0.02),
                     child: Text(
-                      "Select Slot",
+                      "Select slot",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: screenSize.width * 0.05,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 2, 73, 86),
+                        color: const Color.fromARGB(255, 2, 73, 86),
                       ),
                     ),
                   ),
@@ -104,26 +111,71 @@ class Bookingscreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(screenSize.width * 0.02),
                     child: Text(
                       "Select seat",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: screenSize.width * 0.05,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 2, 73, 86),
+                        color: const Color.fromARGB(255, 2, 73, 86),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: SizedBox(
+                      height: screenSize.height * 0.15,
+                      width: screenSize.width * 0.9,
+                      child: CupertinoPicker(
+                        magnification: 1.2,
+                        selectionOverlay:
+                            const CupertinoPickerDefaultSelectionOverlay(),
+                        itemExtent: 32,
+                        onSelectedItemChanged: (int index) {
+                          context
+                              .read<BookingCubit>()
+                              .selectNumberOfSeats(index + 1);
+                        },
+                        children: List<Widget>.generate(10, (index) {
+                          return Center(
+                            child: Text(
+                              '${index + 1}',
+                              style: TextStyle(
+                                  fontSize: screenSize.width * 0.05,
+                                  fontWeight: FontWeight.bold,
+                                  color: context
+                                              .read<BookingCubit>()
+                                              .state
+                                              .numberOfSeats ==
+                                          index + 1
+                                      ? mainclr
+                                      : mainclr),
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(screenSize.width * 0.02),
+                    child: Text(
+                      "Select table",
+                      style: TextStyle(
+                        fontSize: screenSize.width * 0.05,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 2, 73, 86),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 150, // Set an appropriate height for the GridView
+                    height: screenSize.height * 0.2,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(screenSize.width * 0.02),
                       child: GridView.builder(
                         scrollDirection: Axis.vertical,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 8,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: screenSize.height * 0.01,
+                          crossAxisSpacing: screenSize.width * 0.02,
                           childAspectRatio: 2,
                         ),
                         itemCount: state.tables.length,
@@ -137,13 +189,14 @@ class Bookingscreen extends StatelessWidget {
                                 color: state.selectedTable == index
                                     ? Colors.white
                                     : mainclr,
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(
+                                    screenSize.width * 0.02),
                               ),
                               child: Center(
                                 child: Text(
                                   '${state.tables[index]}',
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: screenSize.width * 0.04,
                                     color: state.selectedTable == index
                                         ? mainclr
                                         : Colors.white,
@@ -156,28 +209,32 @@ class Bookingscreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  20.hBox,
+                  SizedBox(height: screenSize.height * 0.03),
                   Center(
-                    child: Container(
-                      height: 35,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 2, 73, 86),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Book",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                    child: InkWell(
+                      onTap: () => _bookcnfrm(context, state),
+                      child: Container(
+                        height: screenSize.height * 0.05,
+                        width: screenSize.width * 0.25,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 2, 73, 86),
+                          borderRadius:
+                              BorderRadius.circular(screenSize.width * 0.08),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Book",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenSize.width * 0.05,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  15.hBox,
+                  SizedBox(height: screenSize.height * 0.02),
                 ],
               );
             },
@@ -234,6 +291,30 @@ class Bookingscreen extends StatelessWidget {
     );
     if (picked != null) {
       context.read<BookingCubit>().selectTime(picked);
+    }
+  }
+
+  void _bookcnfrm(BuildContext context, BookingState state) {
+    if (state.selectedTable != -1) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: mainclr,
+          title: const Text('Booking Confirmed',
+              style: TextStyle(color: Colors.white)),
+          content: Text(
+            'Table ${state.selectedTable + 1} booked for ${DateFormat.yMd().format(state.selectedDate)} at ${state.selectedTime.format(context)} with ${state.numberOfSeats} seats',
+            style: const TextStyle(color: Colors.white),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const Historyscreen())),
+              child: const Text('OK', style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
+      );
     }
   }
 }

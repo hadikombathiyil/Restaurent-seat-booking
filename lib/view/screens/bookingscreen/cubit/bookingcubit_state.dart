@@ -6,35 +6,33 @@ class BookingState extends Equatable {
   final TimeOfDay selectedTime;
   final int selectedTable;
   final List<int> tables;
-
+  final int numberOfSeats;
 
   const BookingState({
     required this.selectedDate,
     required this.selectedTime,
-        this.selectedTable = -1,
+    this.selectedTable = -1,
     required this.tables,
-
- 
+    this .numberOfSeats=1
   });
 
   BookingState copyWith({
     DateTime? selectedDate,
     TimeOfDay? selectedTime,
-        int? selectedTable,
+    int? selectedTable,
     List<int>? tables,
-
-
+    int? numberOfSeats
   }) {
     return BookingState(
       selectedDate: selectedDate ?? this.selectedDate,
       selectedTime: selectedTime ?? this.selectedTime,
-         selectedTable: selectedTable ?? this.selectedTable,
+      selectedTable: selectedTable ?? this.selectedTable,
       tables: tables ?? this.tables,
-
-      
+      numberOfSeats: numberOfSeats ?? this.numberOfSeats,
     );
   }
 
   @override
-  List<Object?> get props => [selectedDate, selectedTime,selectedTable,tables];
+  List<Object?> get props =>
+      [selectedDate, selectedTime, selectedTable, tables,numberOfSeats];
 }

@@ -1,47 +1,56 @@
-import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/cubit/homecubit_cubit.dart';
-import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/homescreen.dart';
-import 'package:finalproject/view/screens/localstorege/localstorage.dart';
-import 'package:finalproject/view/screens/loginscreen/cubit/logincubit_cubit.dart';
+import 'package:finalproject/view/screens/splashscreen/splashscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
-
-part 'registercubit_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:finalproject/view/screens/homescreen/homescreen/homescreen.dart';
+import 'registercubit_state.dart';
 
 class RegistercubitCubit extends Cubit<RegistercubitState> {
-  RegistercubitCubit(this.context) : super(RegistercubitInitial());
-  BuildContext context;
-  TextEditingController username = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  register() async {
-    if (email.text.isNotEmpty && password.text.isNotEmpty) {
+  RegistercubitCubit() : super(RegistercubitInitial());
+  
+  final TextEditingController username = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+
+  Future<void> register(BuildContext context) async {
+    if (email.text.isNotEmpty && password.text.isNotEmpty && username.text.isNotEmpty) {
       try {
-        UserCredential? user = await FirebaseAuth.instance
+        UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: email.text.trim(), password: password.text.trim());
-        if (user.user != null) {
-          LocalStorage data = LocalStorage();
-          LocalStorage.setPostData(user.user!.uid);
-          token = user!.user!.uid;
-          await FirebaseFirestore.instance.collection("user").add({
+        
+        if (userCredential.user != null) {
+          // Store user data in Firestore
+          await FirebaseFirestore.instance.collection("users").doc(userCredential.user!.uid).set({
             "user_name": username.text,
             "email": email.text,
-            "user_id": user.user!.uid,
+            "user_id": userCredential.user!.uid,
           });
+
+          // Store username in SharedPreferences
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('username', username.text);
+
+          emit(RegisterSuccess());
+
+          // Navigate to Home screen
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => Homescreen(),
+            builder: (context) => SplashScreen(),
           ));
         }
-      } on FirebaseException catch (e) {
-        print(e.code);
+      } on FirebaseAuthException catch (e) {
+        emit(RegisterFailure(e.message ?? "An error occurred"));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${e.message}")),
+        );
       }
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("something went wrong")));
-}
-}
-
+      emit(RegisterFailure("Please fill all fields"));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please fill all fields")),
+      );
+    }
+  }
 }

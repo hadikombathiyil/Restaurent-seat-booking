@@ -1,6 +1,13 @@
 part of 'profilecubit_cubit.dart';
 
 @immutable
-sealed class ProfilecubitState {}
+abstract class ProfilecubitState {}
 
-final class ProfilecubitInitial extends ProfilecubitState {}
+class ProfilecubitInitial extends ProfilecubitState {}
+
+class ProfileLoaded extends ProfilecubitState {
+  final String username;
+  final String? profileImage;
+
+  ProfileLoaded({required this.username, this.profileImage});
+}

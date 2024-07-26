@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:finalproject/view/screens/homescreen/confirmscreen.dart/homescreen/homescreen.dart';
 import 'package:finalproject/view/screens/localstorege/localstorage.dart';
 import 'package:finalproject/viewmodel/bottombar/bottombar.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +15,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String? token;
+
   @override
   void initState() {
     super.initState();
@@ -32,25 +32,35 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return AnimatedSplashScreen(
-      splash: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-              child: LottieBuilder.network(
-                  "https://lottie.host/4d4243fe-8b41-4fd1-a23e-8faec41ad578/G628q6o27t.json"),
-            )
-          ],
-        ),
+      splash: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: SizedBox(
+                    width: size.width * 0.8,
+                    height: size.height * 0.4,
+                    child: LottieBuilder.network(
+                      "https://lottie.host/4d4243fe-8b41-4fd1-a23e-8faec41ad578/G628q6o27t.json",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
       backgroundColor: Colors.white,
       nextScreen: token == null ? MainPage() : MainPage(),
-      splashIconSize: 300,
+      splashIconSize: size.height * 0.5,  
       duration: 2000,
     );
   }
 }
-
-
