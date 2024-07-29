@@ -53,7 +53,8 @@ class Registerscreen extends StatelessWidget {
                           filled: true,
                           fillColor: mainclr,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(screenSize.width * 0.125),
+                            borderRadius:
+                                BorderRadius.circular(screenSize.width * 0.125),
                           ),
                         ),
                       ),
@@ -72,7 +73,8 @@ class Registerscreen extends StatelessWidget {
                           filled: true,
                           fillColor: mainclr,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(screenSize.width * 0.125),
+                            borderRadius:
+                                BorderRadius.circular(screenSize.width * 0.125),
                           ),
                         ),
                       ),
@@ -89,9 +91,10 @@ class Registerscreen extends StatelessWidget {
                           labelText: "Password",
                           labelStyle: const TextStyle(color: Colors.white),
                           filled: true,
-                          fillColor:  mainclr,
+                          fillColor: mainclr,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(screenSize.width * 0.125),
+                            borderRadius:
+                                BorderRadius.circular(screenSize.width * 0.125),
                           ),
                         ),
                         obscureText: true,
@@ -131,7 +134,7 @@ class Registerscreen extends StatelessWidget {
                       child: Text(
                         "Already have an account?  ",
                         style: TextStyle(
-                          color:mainclr,
+                          color: mainclr,
                           fontWeight: FontWeight.bold,
                           fontSize: screenSize.width * 0.04,
                         ),

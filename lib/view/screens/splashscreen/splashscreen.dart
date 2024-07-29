@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:finalproject/view/screens/localstorege/localstorage.dart';
+import 'package:finalproject/view/screens/loginscreen/loginscreen.dart';
 import 'package:finalproject/viewmodel/bottombar/bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -58,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
         },
       ),
       backgroundColor: Colors.white,
-      nextScreen: token == null ? MainPage() : MainPage(),
+      nextScreen: token == null ? Loginscreen() : Bottombar(),
       splashIconSize: size.height * 0.5,  
       duration: 2000,
     );

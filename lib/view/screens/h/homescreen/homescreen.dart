@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:finalproject/view/screens/homescreen/homescreen/cubit/homecubit_cubit.dart';
+import 'package:finalproject/view/screens/h/homescreen/cubit/homecubit_cubit.dart';
 import 'package:finalproject/view/screens/restuarentscreen/restuarentscreen.dart';
 import 'package:finalproject/viewmodel/imageslider/imageslider.dart';
 import 'package:finalproject/viewmodel/restuarents/restuarents.dart';
@@ -41,6 +41,7 @@ class _HomescreenContent extends StatelessWidget {
         if (state is HomeUserDataLoaded) {
           return Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: const Color.fromARGB(255, 2, 73, 86),
               title: Text(
                 state.username,
@@ -87,7 +88,8 @@ class _HomescreenContent extends StatelessWidget {
                     aspectRatio: 16 / 9,
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
                     viewportFraction: 0.8,
                   ),
                 ),

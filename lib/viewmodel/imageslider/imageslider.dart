@@ -7,7 +7,7 @@ class Imageslider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    
+
     return Container(
       height: size.height * 0.06, // Adjust this factor as needed
       width: double.infinity,

@@ -9,7 +9,7 @@ class Profilecontainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    
+
     return Container(
       height: size.height * 0.075,
       width: size.width * 0.9,

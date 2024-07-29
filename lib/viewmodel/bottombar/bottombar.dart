@@ -1,5 +1,5 @@
 import 'package:finalproject/view/screens/historyscreen/historyscreen.dart';
-import 'package:finalproject/view/screens/homescreen/homescreen/homescreen.dart';
+import 'package:finalproject/view/screens/h/homescreen/homescreen.dart';
 import 'package:finalproject/view/screens/profilescreen/profilescreen.dart';
 import 'package:finalproject/view/screens/restuarentscreen/restuarentscreen.dart';
 import 'package:finalproject/viewmodel/bottombar/cubit/bottomcubit_cubit.dart';
@@ -7,8 +7,8 @@ import 'package:finalproject/viewmodel/bottombar/cubit/bottomcubit_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+class Bottombar extends StatelessWidget {
+  const Bottombar({super.key});
 
   @override
   Widget build(BuildContext context) {

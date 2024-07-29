@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class Restaurants extends StatelessWidget {
   const Restaurants({super.key, required this.text});
   final String text;
-  
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final double paddingFactor = size.width * 0.02;
-    
+
     return Column(
       children: [
         Container(

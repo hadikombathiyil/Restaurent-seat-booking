@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,6 +10,7 @@ part 'profilecubit_state.dart';
 
 class ProfilecubitCubit extends Cubit<ProfilecubitState> {
   ProfilecubitCubit() : super(ProfilecubitInitial());
+  
 
   Future<void> loadProfile() async {
     final prefs = await SharedPreferences.getInstance();
@@ -21,7 +23,8 @@ class ProfilecubitCubit extends Cubit<ProfilecubitState> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('username', username);
     final currentState = state as ProfileLoaded;
-    emit(ProfileLoaded(username: username, profileImage: currentState.profileImage));
+    emit(ProfileLoaded(
+        username: username, profileImage: currentState.profileImage));
   }
 
   Future<void> pickImage() async {
@@ -30,12 +33,20 @@ class ProfilecubitCubit extends Cubit<ProfilecubitState> {
     if (pickedFile != null) {
       final bytes = await File(pickedFile.path).readAsBytes();
       final base64Image = base64Encode(bytes);
-      
+
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('profile_image', base64Image);
 
       final currentState = state as ProfileLoaded;
-      emit(ProfileLoaded(username: currentState.username, profileImage: base64Image));
+      emit(ProfileLoaded(
+          username: currentState.username, profileImage: base64Image));
     }
+  }
+
+  Future<void> removeProfilePicture() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('profile_image');
+    final currentState = state as ProfileLoaded;
+    emit(ProfileLoaded(username: currentState.username, profileImage: null));
   }
 }

@@ -9,7 +9,7 @@ class Restuarentscreen extends StatelessWidget {
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(automaticallyImplyLeading: false,
         title: Text(
           "Restuarents",
           style: TextStyle(
@@ -26,7 +26,8 @@ class Restuarentscreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Restaurants(text: "Book");
               },
-              separatorBuilder: (context, index) => SizedBox(height: screenSize.height * 0.025),
+              separatorBuilder: (context, index) =>
+                  SizedBox(height: screenSize.height * 0.025),
               itemCount: 7,
             ),
           )

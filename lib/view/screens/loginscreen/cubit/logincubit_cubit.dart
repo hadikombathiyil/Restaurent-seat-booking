@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:finalproject/view/screens/homescreen/homescreen/homescreen.dart';
+import 'package:finalproject/view/screens/h/homescreen/homescreen.dart';
 import 'package:finalproject/view/screens/localstorege/localstorage.dart';
+import 'package:finalproject/viewmodel/bottombar/bottombar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -26,7 +27,7 @@ class LogincubitCubit extends Cubit<LogincubitState> {
           LocalStorage.setPostData(User.user!.uid.toString());
           token = User.user!.uid;
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => Homescreen(),
+            builder: (context) => Bottombar(),
           ));
         }
       } on FirebaseException catch (e) {
