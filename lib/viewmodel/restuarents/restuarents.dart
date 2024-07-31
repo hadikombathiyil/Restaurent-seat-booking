@@ -3,8 +3,11 @@ import 'package:finalproject/viewmodel/color/colors.dart';
 import 'package:flutter/material.dart';
 
 class Restaurants extends StatelessWidget {
-  const Restaurants({super.key, required this.text});
+   Restaurants({super.key, required this.text, required this.text2, required this.location, required this.imageUrl});
   final String text;
+  final String text2;
+  final String location;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +35,8 @@ class Restaurants extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(size.width * 0.025),
                     color: const Color.fromARGB(255, 2, 73, 86),
-                    image: const DecorationImage(
-                      image: AssetImage("assets/download.jpeg"),
+                    image:  DecorationImage(
+                      image: NetworkImage(imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -47,7 +50,7 @@ class Restaurants extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Paragon",
+                        text2,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: size.width * 0.05,
@@ -64,7 +67,7 @@ class Restaurants extends StatelessWidget {
                           ),
                           SizedBox(width: size.width * 0.01),
                           Text(
-                            "Hilite Mall",
+                            location,
                             style: TextStyle(
                               color: mainclr,
                               fontSize: size.width * 0.035,
