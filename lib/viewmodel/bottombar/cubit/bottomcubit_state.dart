@@ -1,8 +1,9 @@
 abstract class BottomcubitState {
-  final int currentIndex;
-  const BottomcubitState(this.currentIndex);
+  final int flag;
+  const BottomcubitState(this.flag);
 }
 
 class BottomcubitInitial extends BottomcubitState {
-  const BottomcubitInitial(int currentIndex) : super(currentIndex);
+
+  const BottomcubitInitial(int flag) : super(flag);
 }

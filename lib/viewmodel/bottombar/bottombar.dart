@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Bottombar extends StatelessWidget {
-  const Bottombar({super.key});
-
+  const Bottombar({Key? key, this.initialindex = 0}) : super(key: key);
+  final int initialindex;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -17,13 +17,13 @@ class Bottombar extends StatelessWidget {
     final double fontSize = size.width * 0.03;
 
     return BlocProvider(
-      create: (context) => BottomcubitCubit(),
+      create: (context) => BottomcubitCubit()..changeIndex(initialindex ),
       child: BlocBuilder<BottomcubitCubit, BottomcubitState>(
         builder: (context, state) {
           final cubit = context.read<BottomcubitCubit>();
           return Scaffold(
             backgroundColor: const Color.fromARGB(190, 2, 74, 86),
-            body: _getScreen(state.currentIndex),
+            body: _getScreen(state.flag),
             bottomNavigationBar: Theme(
               data: Theme.of(context).copyWith(
                 canvasColor: const Color.fromARGB(190, 2, 74, 86),
@@ -47,7 +47,7 @@ class Bottombar extends StatelessWidget {
                     label: 'Profile',
                   ),
                 ],
-                currentIndex: state.currentIndex,
+                currentIndex: state.flag,
                 selectedItemColor: Colors.white,
                 unselectedItemColor: Colors.white,
                 selectedFontSize: fontSize,

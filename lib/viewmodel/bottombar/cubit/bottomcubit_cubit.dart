@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BottomcubitCubit extends Cubit<BottomcubitState> {
   BottomcubitCubit() : super(BottomcubitInitial(0));
 
-  void changeIndex(int index) {
-    emit(BottomcubitInitial(index));
+  void changeIndex(int newflag) {
+    emit(BottomcubitInitial(newflag));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/view/screens/historyscreen/historyscreen.dart';
+import 'package:finalproject/viewmodel/bottombar/bottombar.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,9 @@ import 'package:finalproject/viewmodel/color/colors.dart';
 import 'package:finalproject/viewmodel/profilecontainer/profilecontainer.dart';
 
 class Bookingscreen extends StatelessWidget {
-  const Bookingscreen({super.key});
+   final String restaurantId;
+
+  const Bookingscreen({Key? key, required this.restaurantId}) : super(key: key);
 
   Future<String> getDownloadURL(String gsUrl) async {
     try {
@@ -33,12 +36,12 @@ class Bookingscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final CollectionReference restuarants =
-        FirebaseFirestore.instance.collection('restuarants');
+  final restaurantRef = FirebaseFirestore.instance.collection('restuarants').doc(restaurantId);
+
 
     return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
-        stream: restuarants.snapshots(),
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: restaurantRef.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -46,11 +49,16 @@ class Bookingscreen extends StatelessWidget {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
+          } if (!snapshot.hasData || !snapshot.data!.exists) {
+            return Center(child: Text('Restaurant not found'));
           }
 
-          // Assuming we're using the first restaurant's image
-          final restaurantDoc = snapshot.data!.docs.first;
-          final String gsUrl = restaurantDoc['image'] ?? '';
+
+            final restaurantData = snapshot.data!.data() as Map<String, dynamic>;
+          final String name = restaurantData['name'] ?? 'Unknown Restaurant';
+          final String location = restaurantData['location'] ?? 'Unknown Location';
+          final String gsUrl = restaurantData['image'] ?? '';
+
 
           return SingleChildScrollView(
             child: BlocProvider(
@@ -63,7 +71,8 @@ class Bookingscreen extends StatelessWidget {
                       FutureBuilder<String>(
                         future: getDownloadURL(gsUrl),
                         builder: (context, urlSnapshot) {
-                          if (urlSnapshot.connectionState == ConnectionState.waiting) {
+                          if (urlSnapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return Container(
                               height: screenSize.height * 0.3,
                               width: double.infinity,
@@ -83,8 +92,10 @@ class Bookingscreen extends StatelessWidget {
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(screenSize.width * 0.08),
-                                bottomRight: Radius.circular(screenSize.width * 0.08),
+                                bottomLeft:
+                                    Radius.circular(screenSize.width * 0.08),
+                                bottomRight:
+                                    Radius.circular(screenSize.width * 0.08),
                               ),
                               border: Border.all(
                                 width: 2,
@@ -102,7 +113,7 @@ class Bookingscreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(screenSize.width * 0.02),
                         child: Text(
-                          restaurantDoc['name'] ?? "Restaurant Name",
+                         name,
                           style: TextStyle(
                             fontSize: screenSize.width * 0.06,
                             fontWeight: FontWeight.bold,
@@ -118,7 +129,7 @@ class Bookingscreen extends StatelessWidget {
                             size: screenSize.width * 0.05,
                           ),
                           Text(
-                            restaurantDoc['location'] ?? "Restaurant Location",
+                            location,
                             style: TextStyle(
                               color: const Color.fromARGB(255, 2, 73, 86),
                               fontSize: screenSize.width * 0.04,
@@ -228,7 +239,8 @@ class Bookingscreen extends StatelessWidget {
                           padding: EdgeInsets.all(screenSize.width * 0.02),
                           child: GridView.builder(
                             scrollDirection: Axis.vertical,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisSpacing: screenSize.height * 0.01,
                               crossAxisSpacing: screenSize.width * 0.02,
@@ -238,7 +250,9 @@ class Bookingscreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
-                                  context.read<BookingCubit>().selectTable(index);
+                                  context
+                                      .read<BookingCubit>()
+                                      .selectTable(index);
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -252,7 +266,7 @@ class Bookingscreen extends StatelessWidget {
                                     child: Text(
                                       '${state.tables[index]}',
                                       style: TextStyle(
-                                        fontSize: screenSize.width * 0.04,
+                                        fontSize: screenSize.width * 0.05,
                                         color: state.selectedTable == index
                                             ? mainclr
                                             : Colors.white,
@@ -265,7 +279,7 @@ class Bookingscreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: screenSize.height * 0.03),
+                      SizedBox(height: screenSize.height * 0.04),
                       Center(
                         child: InkWell(
                           onTap: () => _bookcnfrm(context, state),
@@ -274,8 +288,8 @@ class Bookingscreen extends StatelessWidget {
                             width: screenSize.width * 0.25,
                             decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 2, 73, 86),
-                              borderRadius:
-                                  BorderRadius.circular(screenSize.width * 0.08),
+                              borderRadius: BorderRadius.circular(
+                                  screenSize.width * 0.08),
                             ),
                             child: Center(
                               child: Text(
@@ -366,12 +380,12 @@ class Bookingscreen extends StatelessWidget {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const Historyscreen())),
+              onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const Bottombar(initialindex:2 ,))),
               child: const Text('OK', style: TextStyle(color: Colors.white)),
             ),
           ],
-        ),
+        )
       );
     }
   }

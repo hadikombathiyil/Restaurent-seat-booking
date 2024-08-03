@@ -3,11 +3,20 @@ import 'package:finalproject/viewmodel/color/colors.dart';
 import 'package:flutter/material.dart';
 
 class Restaurants extends StatelessWidget {
-   Restaurants({super.key, required this.text, required this.text2, required this.location, required this.imageUrl});
+  const Restaurants({
+    Key? key,
+    required this.text,
+    required this.text2,
+    required this.location,
+    required this.imageUrl,
+    required this.restaurantId,
+  }) : super(key: key);
+
   final String text;
   final String text2;
   final String location;
   final String imageUrl;
+  final String restaurantId;
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +34,26 @@ class Restaurants extends StatelessWidget {
               color: const Color.fromARGB(255, 2, 73, 86),
             ),
           ),
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(paddingFactor),
-                child: Container(
-                  height: size.height * 0.13,
-                  width: size.width * 0.25,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(size.width * 0.025),
-                    color: const Color.fromARGB(255, 2, 73, 86),
-                    image:  DecorationImage(
-                      image: NetworkImage(imageUrl),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+         child: Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(paddingFactor),
+            child: Container(
+              height: size.height * 0.13,
+              width: size.width * 0.25,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(size.width * 0.025),
+                color: const Color.fromARGB(255, 2, 73, 86),
+                image: DecorationImage(
+                  image: NetworkImage(imageUrl),
+                  fit: BoxFit.cover,
+                  onError: (error, stackTrace) {
+                    print('Error loading image: $error');
+                  },
                 ),
               ),
+            ),
+          ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: paddingFactor),
@@ -85,7 +97,7 @@ class Restaurants extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Bookingscreen(),
+                      builder: (context) => Bookingscreen(restaurantId: restaurantId),
                     ));
                   },
                   child: Container(

@@ -96,7 +96,7 @@ class _HomescreenContent extends StatelessWidget {
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 return Column(
@@ -171,6 +171,7 @@ class _HomescreenContent extends StatelessWidget {
                               index < snapshot.data!.docs.length) {
                             final DocumentSnapshot restuarentsnap =
                                 snapshot.data!.docs[index];
+                            print(restuarentsnap);
                             final String gsUrl = restuarentsnap['image'] ?? '';
                             print("Restaurant $index image gsUrl: $gsUrl");
 
@@ -179,7 +180,7 @@ class _HomescreenContent extends StatelessWidget {
                               builder: (context, urlSnapshot) {
                                 if (urlSnapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Center(
+                                  return const Center(
                                       child: CircularProgressIndicator());
                                 }
                                 if (urlSnapshot.hasError) {
@@ -189,6 +190,7 @@ class _HomescreenContent extends StatelessWidget {
                                       "Error loading image for restaurant $index");
                                 }
                                 final String imageUrl = urlSnapshot.data ?? '';
+                                final String restaurantId = restuarentsnap.id;
                                 print(
                                     "Restaurant $index final imageUrl: $imageUrl");
 
@@ -199,12 +201,13 @@ class _HomescreenContent extends StatelessWidget {
                                   location: restuarentsnap['location'] ??
                                       'Unknown Location',
                                   imageUrl: imageUrl,
+                                  restaurantId: restaurantId,
                                 );
                               },
                             );
                           } else {
                             print("No data available for index $index");
-                            return SizedBox.shrink();
+                            return const SizedBox.shrink();
                           }
                         },
                       ),

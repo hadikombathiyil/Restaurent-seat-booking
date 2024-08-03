@@ -10,6 +10,7 @@ class Historyscreen extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      
       appBar: AppBar(
         title: Text(
           "Booking History",
