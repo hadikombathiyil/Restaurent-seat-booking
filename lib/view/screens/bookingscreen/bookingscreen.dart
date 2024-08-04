@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/view/screens/historyscreen/historyscreen.dart';
 import 'package:finalproject/viewmodel/bottombar/bottombar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,9 +63,10 @@ class Bookingscreen extends StatelessWidget {
 
           return SingleChildScrollView(
             child: BlocProvider(
-              create: (context) => BookingCubit(),
+             create: (context) => BookingCubit()..setRestaurantDetails(restaurantId, name, location, gsUrl),
               child: BlocBuilder<BookingCubit, BookingState>(
-                builder: (context, state) {
+                builder: (context, state) { context.read<BookingCubit>().setRestaurantDetails(restaurantId, name, location, gsUrl);
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -282,7 +284,7 @@ class Bookingscreen extends StatelessWidget {
                       SizedBox(height: screenSize.height * 0.04),
                       Center(
                         child: InkWell(
-                          onTap: () => _bookcnfrm(context, state),
+                          onTap: () => _bookcnfrm(context, ),
                           child: Container(
                             height: screenSize.height * 0.05,
                             width: screenSize.width * 0.25,
@@ -366,27 +368,37 @@ class Bookingscreen extends StatelessWidget {
     }
   }
 
-  void _bookcnfrm(BuildContext context, BookingState state) {
+ 
+  void _bookcnfrm(BuildContext context) {
+    final state = context.read<BookingCubit>().state;
     if (state.selectedTable != -1) {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (dialogContext) => AlertDialog(
           backgroundColor: mainclr,
-          title: const Text('Booking Confirmed',
-              style: TextStyle(color: Colors.white)),
+          title: const Text('Booking Confirmed', style: TextStyle(color: Colors.white)),
           content: Text(
-            'Table ${state.selectedTable + 1} booked for ${DateFormat.yMd().format(state.selectedDate)} at ${state.selectedTime.format(context)} with ${state.numberOfSeats} seats',
+            'Table ${state.selectedTable + 1} booked at ${state.restaurantName} for ${DateFormat.yMd().format(state.selectedDate)} at ${state.selectedTime.format(context)} with ${state.numberOfSeats} seats',
             style: const TextStyle(color: Colors.white),
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const Bottombar(initialindex:2 ,))),
+              onPressed: () async {
+                final user = FirebaseAuth.instance.currentUser;
+                if (user != null) {
+                  await context.read<BookingCubit>().bookRestaurant(user.uid);
+                }
+                Navigator.of(dialogContext).pop(); // Close the dialog
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const Bottombar(initialindex: 2),
+                ));
+              },
               child: const Text('OK', style: TextStyle(color: Colors.white)),
             ),
           ],
-        )
+        ),
       );
     }
   }
 }
+

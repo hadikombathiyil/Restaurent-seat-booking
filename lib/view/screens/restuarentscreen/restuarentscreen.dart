@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/view/screens/bookingscreen/bookingscreen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/viewmodel/restuarents/restuarents.dart';
@@ -71,7 +72,8 @@ class Restuarentscreen extends StatelessWidget {
                     return FutureBuilder<String>(
                       future: getDownloadURL(gsUrl),
                       builder: (context, urlSnapshot) {
-                        if (urlSnapshot.connectionState == ConnectionState.waiting) {
+                        if (urlSnapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Center(child: CircularProgressIndicator());
                         }
 
@@ -80,10 +82,21 @@ class Restuarentscreen extends StatelessWidget {
 
                         return Restaurants(
                           text: "Book",
-                          text2: restuarentsnap['name'] as String? ?? 'Unknown Restaurant',
-                          location: restuarentsnap['location'] as String? ?? 'Unknown Location',
+                          text2: restuarentsnap['name'] as String? ??
+                              'Unknown Restaurant',
+                          location: restuarentsnap['location'] as String? ??
+                              'Unknown Location',
                           imageUrl: imageUrl,
                           restaurantId: restaurantId,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    Bookingscreen(restaurantId: restaurantId),
+                              ),
+                            );
+                          },
                         );
                       },
                     );

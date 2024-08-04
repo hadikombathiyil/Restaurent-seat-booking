@@ -9,7 +9,7 @@ class Restaurants extends StatelessWidget {
     required this.text2,
     required this.location,
     required this.imageUrl,
-    required this.restaurantId,
+    required this.restaurantId, required Null Function() onTap,
   }) : super(key: key);
 
   final String text;

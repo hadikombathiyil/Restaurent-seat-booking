@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/view/screens/bookingscreen/bookingscreen.dart';
 import 'package:finalproject/view/screens/h/homescreen/cubit/homecubit_cubit.dart';
 import 'package:finalproject/view/screens/restuarentscreen/restuarentscreen.dart';
 import 'package:finalproject/viewmodel/imageslider/imageslider.dart';
@@ -202,6 +203,14 @@ class _HomescreenContent extends StatelessWidget {
                                       'Unknown Location',
                                   imageUrl: imageUrl,
                                   restaurantId: restaurantId,
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Bookingscreen(
+                                              restaurantId: restaurantId),
+                                        ));
+                                  },
                                 );
                               },
                             );
